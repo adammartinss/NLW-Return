@@ -1,5 +1,6 @@
+
 import { StatusBar } from 'expo-status-bar';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import {
     useFonts,
@@ -8,12 +9,14 @@ import {
 } from '@expo-google-fonts/inter';
 
 import { theme } from './src/theme';
-import { Widget } from './src/components/Widget';
+import React from 'react';
+import Widget  from './src/components/Widget';
+
 
 export default function App() {
     const [fontsLoaded] = useFonts({
         Inter_400Regular,
-        Inter_500Medium
+        Inter_500Medium,
     });
 
     if (!fontsLoaded) {
@@ -21,18 +24,21 @@ export default function App() {
     }
 
     return (
-        <View
+        <View 
             style={{
                 flex: 1,
                 backgroundColor: theme.colors.background,
             }}
         >
-            <Widget />
+            <Text>
+                Hello world!
+            </Text>
             <StatusBar
                 style="light"
                 backgroundColor="transparent"
                 translucent
             />
+            <Widget />
         </View>
     );
 }
