@@ -4,5 +4,4 @@
 
 body{
     @apply bg-[#09090A] text-zinc-100 transition-all; 
-    overflow: hidden;
 }

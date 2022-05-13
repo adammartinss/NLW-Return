@@ -16,23 +16,22 @@ export default function App() {
                     <div className="w-8 h-8 my-auto mx-2 rounded-lg right-2 bg-zinc-700 hover:bg-zinc-600"></div>
                 </nav>
             </header>
-            <main className="mt-8">
-                <div className="mx-auto mt-4 w-[1120px]">
-                    <div className="mb-8 h-[124px] flex flex-col justify-center m-auto bg-zinc-100 dark:bg-zinc-800">
+            <main className="mt-8 ">
+                <div className="mx-auto mt-4 w-[352px] lg:w-[1120px]">
+                    <div className="mb-8 h-[124px] flex flex-col align-items-center justify-center mx-auto bg-zinc-100 dark:bg-zinc-800">
                         <p className="ml-14 text-zinc-500 dark:text-zinc-400">
-                            Experimente enviar um feedback 
+                            Experimente enviar um feedback
                         </p>
                     </div>
 
-                    <div className="w-full flex flex-col md:flex-row gap-8">
+                    <div className="w-full flex flex-col justify-center align-items-center lg:flex-row gap-8">
                         <div className="w-[352px] h-[310px] bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-lg"></div>
                         <div className="w-[352px] h-[310px] bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-lg"></div>
                         <div className="w-[352px] h-[310px] bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-lg "></div>
                     </div>
                 </div>
             </main>
-            <Widget/>
-            
+            <Widget />
         </>
     );
 }
