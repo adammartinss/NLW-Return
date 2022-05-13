@@ -6,7 +6,7 @@ import {feedbackTypes}from '../../utils/feedbackTypes'
 import { styles } from './styles';
 import { FeedbackType } from '../Widget';
 
-interface Props {
+ interface Props {
     onFeedbackTypeChanged: (feedbackType: FeedbackType)=> void
 }
 

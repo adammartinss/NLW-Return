@@ -1,21 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import { TouchableOpacity } from 'react-native';
 import { ChatTeardropDots } from 'phosphor-react-native';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import { styles } from './styles';
 import { theme } from '../../theme';
-import { useRef } from 'react';
 import { Options } from '../Options';
 import { Form } from '../Form'
 import { Success } from '../Success'
+import { onFeedbackTypeChanged } from '../Options';
 import { feedbackTypes } from'../../utils/feedbackTypes'
 
 export type FeedbackType = keyof typeof feedbackTypes
 
  function Widget() {
-     const[feedbackType, setFeedbackType] = useState<FeedbackType | null>(null)
-     const [feedbackSent, setFeedbackSent]= useState(false)
+    const[feedbackType, setFeedbackType] = useState<FeedbackType | null>(null)
+    const [feedbackSent, setFeedbackSent]= useState(false)
     const bottomSheetRef = useRef<BottomSheet>(null);
     function handleOpen() {
         bottomSheetRef.current?.expand();
@@ -42,18 +42,20 @@ export type FeedbackType = keyof typeof feedbackTypes
                 backgroundStyle={styles.modal}
                 handleIndicatorStyle={styles.indicator}
             >
-                {feedbackSent ? (
-                    <Success />
-                ) : (
+                {
+                feedbackSent ? (
+                    <Success onSendAnotherFeedback ={handleRestartFeedback}/>
+                 : 
                     <>
-                        {feedbackType ? (
+                    {
+                        feedbackType ? (
                             <Form
                                 feedbackType={feedbackType}
                                 onFeedbackCanceled={handleRestartFeedback}
                                 onFeedbackSent={handleFeedbackSent}
                             />
                         ) : (
-                            <Options onFeedbackTypeChanged={setFeedbackSent} />
+                            <Options onFeedbackTypeChanged={setFeedbackType} />
                         )}
                     </>
                 )}

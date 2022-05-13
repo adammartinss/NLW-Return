@@ -11,11 +11,12 @@ import {
     import { ScreenshotButton  } from '../ScreenshotButton';
 import {Button} from'../Button'
 import React, { useRef, useState } from 'react';
-
+import * as FileSystem from 'expo-file-system'
 
 import { styles } from './styles';
 import { theme } from '../../theme';
 import {feedbackTypes} from'../../utils/feedbackTypes'
+import { api } from '../../libs/api';
 
 interface Props{
     feedbackType: FeedbackType;
@@ -24,9 +25,10 @@ interface Props{
 }
 
 export function Form({ feedbackType, onFeedbackCanceled, onFeedbackSent }: Props) {
+    const [isSendingFeedback, setIsSendingFeedback]=useState(false)
     const [screenshot, setScreenshot] = useState<string | null>(null);
+    const [comment, setComment]=useState('')
     const feedbackTypeInfo = feedbackTypes[feedbackType];
-
     function handleScreenshot() {
         captureScreen({
             format: 'jpg',
@@ -38,7 +40,28 @@ export function Form({ feedbackType, onFeedbackCanceled, onFeedbackSent }: Props
     function handleScreenshotRemove() {
         setScreenshot(null);
     }
+    async function handleSendFeedback(){
+        if(isSendingFeedback){
+            return
+        }
+        setIsSendingFeedback(true)
+           const screenshotBase64 = screenshot && await FileSystem.readAsStringAsync(screenshot, { encoding: 'base64'}) 
 
+
+        try{
+            await api.post('/feedbacks',{
+                type: feedbackType,
+                screenshot:`data:image/png;base64, ${screenshotBase64}`,
+                comment
+            })
+
+            onFeedbackSent()
+
+        }catch(error){
+            console.log(error)
+            setIsSendingFeedback(false)
+        }
+    }
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -66,14 +89,20 @@ export function Form({ feedbackType, onFeedbackCanceled, onFeedbackSent }: Props
                 style={styles.input}
                 placeholder="Algo não está funcionando bem? Queremos corrigir. Conte com detalhes o que está acontecendo"
                 placeholderTextColor={theme.colors.text_secondary}
+                autoCorrect={false}
             />
             <View style={styles.footer}>
                 <ScreenshotButton
                     onTakeShot={handleScreenshot}
                     onRemoveShot={handleScreenshotRemove}
                     screenshot={screenshot}
+                    onChangeText={setComment}
                 />
-                <Button isLoading={false} />
+                <Button 
+                onPress={handleSendFeedback}
+                isLoading={isSendingFeedback}
+                
+                />
             </View>
         </View>
     );
