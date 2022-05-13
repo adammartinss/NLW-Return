@@ -8,7 +8,6 @@ import { theme } from '../../theme';
 import { Options } from '../Options';
 import { Form } from '../Form'
 import { Success } from '../Success'
-import { onFeedbackTypeChanged } from '../Options';
 import { feedbackTypes } from'../../utils/feedbackTypes'
 
 export type FeedbackType = keyof typeof feedbackTypes
@@ -42,13 +41,11 @@ export type FeedbackType = keyof typeof feedbackTypes
                 backgroundStyle={styles.modal}
                 handleIndicatorStyle={styles.indicator}
             >
-                {
-                feedbackSent ? (
-                    <Success onSendAnotherFeedback ={handleRestartFeedback}/>
-                 : 
+                {feedbackSent ? (
+                    <Success onSendAnotherFeedback={handleRestartFeedback} />
+                ) : (
                     <>
-                    {
-                        feedbackType ? (
+                        {feedbackType ? (
                             <Form
                                 feedbackType={feedbackType}
                                 onFeedbackCanceled={handleRestartFeedback}
