@@ -8,7 +8,7 @@ export default function Widget() {
             setIsWidgetOpen(!isWidgetOpen)
         }
     return (
-        <Popover className="absolute bottom-4 right-4 sm:right-8 sm:bottom-8 flex flex-col items-end">
+        <Popover className="fixed bottom-4 right-4 sm:right-8 sm:bottom-8 flex flex-col items-end">
             <Popover.Panel><WidgetForm/></Popover.Panel>
             <Popover.Button className="bg-brand-500 rounded-full px-3 h-12 text-white flex items-center group ">
                 <ChatTeardropDots className="w-6 h-6" />
